@@ -4,7 +4,6 @@ import (
 	"flag"
 	"strings"
 
-	dht "github.com/libp2p/go-libp2p-kad-dht"
 	maddr "github.com/multiformats/go-multiaddr"
 )
 
@@ -56,7 +55,9 @@ func ParseFlags() (Config, error) {
 	flag.Parse()
 
 	if len(config.BootstrapPeers) == 0 {
-		config.BootstrapPeers = dht.DefaultBootstrapPeers
+		// config.BootstrapPeers = dht.DefaultBootstrapPeers
+		ma, _ := maddr.NewMultiaddr("/ip4/172.29.252.74/tcp/44631/p2p/QmSWTFKvNj27UYWSfCBDf2FkiDjBymWJWb1wcfmepL5ee7")
+		config.BootstrapPeers = append(config.BootstrapPeers, ma)
 	}
 
 	return config, nil
